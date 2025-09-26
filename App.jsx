@@ -1,17 +1,26 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button, Alert } from 'react-native';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './src/navigation-screens/Home'
 import About from './src/navigation-screens/About'
 import Login from './src/navigation-screens/Login'
+import MyHeader from './src/navigation-screens/MyHeader'
+import Example from './src/navigation-screens/Example'
 
 
 const Stack = createNativeStackNavigator();
 
+const sayHello = () => {
+  Alert.alert('Hello', 'Hello User');
+};
+
+const HeaderTitle = () => <Button title='One' color="red" onPress={sayHello} />;
+const HeaderRight = () => <Button title='Two' color="green" onPress={sayHello} />;
+const MyExample = () => <Example />;
+
 const App = () => {
   return (
-
     
    <NavigationContainer>
     <Stack.Navigator screenOptions={{
@@ -22,7 +31,16 @@ const App = () => {
       }} >
 
 
-
+      <Stack.Screen name='Header' component={MyHeader} 
+      options={{
+        title: '',
+        headerTitle : ()=> <Button title='One' color="red" />,
+        headerRight : ()=> <Button title='Two' color={"green"} />
+        headerTitle: HeaderTitle,
+        headerRight: HeaderRight,
+        headerTitle : MyExample,
+      }}
+      /> 
       <Stack.Screen name="Login" component={Login} 
        options={{ 
       title: 'My Login form',
@@ -65,3 +83,7 @@ const styles = StyleSheet.create({
     backgroundColor : 'lightgreen',
   },
 });
+
+
+
+
